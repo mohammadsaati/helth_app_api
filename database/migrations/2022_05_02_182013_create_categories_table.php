@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("slug")->unique()->index();
+            $table->string("image");
             $table->integer("parent_id")->nullable();
             $table->integer("status")->default(1)->comment("1 active | 0 deActive");
             $table->timestamps();

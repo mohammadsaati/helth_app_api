@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("post_id");
+            $table->unsignedBigInteger("user_id");
             $table->text("message");
             $table->integer("reply_id")->nullable();
             $table->integer("status")->default(1)->comment("1 show | 0 hidden");
@@ -24,6 +25,10 @@ return new class extends Migration
             $table->foreign("post_id")->on("posts")->references("id")
                  ->onDelete("cascade")
                  ->onUpdate("cascade");
+
+            $table->foreign("user_id")->on("users")->references("id")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
         });
     }
 
