@@ -26,7 +26,7 @@ class ApiKey
         return $this;
     }
 
-    public function setLength($value) : static
+    public function setLength(int $value) : static
     {
         $this->key_length = $value;
         return $this;
