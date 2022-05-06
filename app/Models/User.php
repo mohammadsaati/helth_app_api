@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /************************************
+     ************** Relations ***********
+     ***************  START *************/
+
+    public function activationCode()
+    {
+        return $this->belongsTo(ActivationCode::class , "user_id");
+    }
+
+    /************************************
+     ************** Relations ***********
+     ***************  END *************/
 }
