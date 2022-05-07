@@ -13,4 +13,5 @@ return [
     "create_code"      =>  "activated code is not created for You pleas ask a new code." ,
     "no_shopping_cart"  =>  "There is no shopping cart for given data." ,
     "invalid_address"   =>  "This address is not for You." ,
+    "success_register"  =>  "Your registration have been successful , activation code is sent for you"
 ];
