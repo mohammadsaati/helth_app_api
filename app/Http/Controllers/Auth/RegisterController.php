@@ -19,7 +19,9 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->service->register($request);
+        $this->service->register($request->all());
+
+        return response_as_json(data: trans("messages.success_register"));
     }
 
 }
