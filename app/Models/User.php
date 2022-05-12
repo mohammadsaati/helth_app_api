@@ -51,12 +51,27 @@ class User extends Authenticatable
      ************** Relations ***********
      ***************  START *************/
 
-    public function activationCode()
+    public function activationCodes()
     {
-        return $this->belongsTo(ActivationCode::class , "user_id");
+        return $this->hasMany(ActivationCode::class , "user_id");
     }
 
     /************************************
      ************** Relations ***********
      ***************  END *************/
+
+
+    /************************************
+     ************** Static Func *********
+     ***************  START *************/
+
+    public static function getUserActivationCode(User $user) : int | null
+    {
+        return $user->activationCodes()->first()->code;
+    }
+
+    /************************************
+     ************** Static Func *********
+     ***************  END *************/
+
 }
