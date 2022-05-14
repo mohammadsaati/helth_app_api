@@ -21,7 +21,7 @@ class LoginService extends Service
 
     protected function loginPermission()
     {
-        ActivationCodeService::CheckUserHaveCode(user: $this->user);
+         ActivationCodeService::CheckCode(user: $this->user , code: $this->logged_in_date["activation_code"]??"");
     }
 
     /***********************************
