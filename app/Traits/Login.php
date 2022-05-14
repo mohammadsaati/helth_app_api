@@ -69,7 +69,7 @@ trait Login
      */
     protected function checkPassword()
     {
-        if ( Hash::check( $this->user->password  , $this->logged_in_date["password"]) )
+        if ( !Hash::check( $this->logged_in_date["password"] , $this->user->password) )
         {
             throw AuthException::AuthError();
         } else {

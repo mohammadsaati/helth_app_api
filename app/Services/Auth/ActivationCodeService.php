@@ -11,20 +11,12 @@ use Carbon\Carbon;
 class ActivationCodeService extends Service
 {
 
-    private string $activation_code_filed_name = "code";
 
     public function model()
     {
         $this->model = ActivationCode::class;
     }
 
-    /**
-     * @param string $activation_code_filed_name
-     */
-    public function setActivationCodeFiledName(string $activation_code_filed_name): void
-    {
-        $this->activation_code_filed_name = $activation_code_filed_name;
-    }
 
     /************************************
      ************** Static Func ********
@@ -39,23 +31,44 @@ class ActivationCodeService extends Service
         ]);
     }
 
-    public static function CheckUserHaveCode(User $user) : AuthException
+    /**
+     * @throws AuthException
+     */
+    public static function CheckCode(User $user , $code) : void
+    {
+        $user_code = User::getUserActivationCode(user: $user);
+
+        if ( !$user_code | $user_code != $code )
+        {
+           throw AuthException::InvalidCode();
+        }
+
+        self::CheckCodeExpiry(activationCode: $user->activationCodes()->first());
+    }
+
+    /**
+     * @throws AuthException
+     */
+    public static function CheckUserHaveCode(User $user) : void
     {
         if (User::getUserActivationCode(user: $user))
         {
             self::CheckCodeExpiry($user->activationCodes()->first());
         }
-        return AuthException::CreateCode();
+        throw AuthException::CreateCode();
     }
 
+    /**
+     * @throws AuthException
+     */
     public static function CheckCodeExpiry($activationCode): void
     {
         $current_time = Carbon::now();
         $expiry_time = Carbon::parse( $activationCode->expired_at );
 
-        if ($expiry_time->greaterThan( $current_time ))
+        if (!$expiry_time->greaterThan( $current_time ))
         {
-            AuthException::CodeExpiry();
+            throw AuthException::CodeExpiry();
         }
 
     }
