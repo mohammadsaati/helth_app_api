@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\AuthException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,11 +64,18 @@ class User extends Authenticatable
 
     /************************************
      ************** Static Func *********
-     ***************  START *************/
+     ***************  START ************
+     * @throws AuthException
+     */
 
-    public static function getUserActivationCode(User $user) : int | null
+    public static function getUserActivationCode(User $user) : int
     {
-        return $user->activationCodes()->first()->code;
+        $activation_code = $user->activationCodes()->first();
+
+        if (!$activation_code)
+            throw AuthException::CreateCode();
+
+        return $activation_code->code;
     }
 
     /************************************

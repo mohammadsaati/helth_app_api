@@ -20,7 +20,7 @@ trait Login
 
         try {
             $this->checkPhoneNumber();
-
+            $this->afterLogin();
             return $this->user;
 
         } catch (AuthException $exception)
@@ -81,5 +81,11 @@ trait Login
     {
 
     }
+
+    protected function afterLogin() : void
+    {
+
+    }
+
 
 }
