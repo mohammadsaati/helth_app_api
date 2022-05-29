@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,7 +27,8 @@ class UserFactory extends Factory
             "phone_number"          =>  $this->faker->unique()->phoneNumber ,
             "api_key"               =>  ApiKey::setModel(User::class)->generateKey() ,
             "password"              =>  "$2y$10$9MdwcXeB6w04a3dCcfS1iOgZapgWIncTmuSMFer49Lh3jhuu7Q/12" , // 123456
-            "status"                =>  $this->faker->randomElement([0 , 1]) ,
+            "status"                =>  $this->faker->randomElement(["0" , "1"]) ,
+            "user_type_id"          =>  $this->faker->randomElement( UserType::all()->pluck("id")->toArray() ) ,
             "remember_token"        =>  Str::random(10)
         ];
     }

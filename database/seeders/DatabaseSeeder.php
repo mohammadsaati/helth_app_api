@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\DoctorCategory;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,9 +21,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         User::factory(50)->create();
-         Category::factory(20)->create();
-         Doctor::factory(40)->create();
+        UserType::factory(3)->create();
+         User::factory(100)->create();
+         Category::factory(50)->create();
+         Doctor::factory(50)->create();
          DoctorCategory::factory(40)->create();
          Post::factory(80)->create();
          Comment::factory(50)->create();
