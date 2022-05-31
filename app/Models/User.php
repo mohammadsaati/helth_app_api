@@ -26,7 +26,8 @@ class User extends Authenticatable
         "last_name" ,
         "phone_number" ,
         "api_key"  ,
-        "status"
+        "status" ,
+        "user_type_id"
     ];
 
     /**
