@@ -8,4 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name"                  ,       "slug"          ,
+        "image"                 ,       "category_id"   ,
+        "description"           ,       "priority"      ,
+        "status"
+    ];
+
+    /****************************************
+     * ************ #Relations **************
+     *************** START ******************/
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , "user_id");
+    }
+
+    public function comments()
+    {
+       return $this->hasMany(Comment::class , "post_id");
+    }
+
+    /****************************************
+     * ************ #Relations **************
+     *************** END ******************/
+
 }
